@@ -1,12 +1,17 @@
 (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __esm = (fn, res) => function __init() {
     return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
   };
   var __export = (target, all) => {
     for (var name in all)
       __defProp(target, name, { get: all[name], enumerable: true });
+  };
+  var __publicField = (obj, key, value) => {
+    __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+    return value;
   };
 
   // node_modules/@rails/actioncable/src/adapters.js
@@ -6644,14 +6649,39 @@
   application.debug = false;
   window.Stimulus = application;
 
-  // app/javascript/controllers/hello_controller.js
-  var hello_controller_default = class extends Controller {
-    connect() {
-      this.element.textContent = "Hello World!";
+  // app/javascript/controllers/quiz_controller.js
+  var quiz_controller_default = class extends Controller {
+    initialize() {
+      this.index = 0;
+      this.showCurrentQuestion();
+      this.updateQuestionStep();
+    }
+    next() {
+      this.index++;
+      this.showCurrentQuestion();
+      this.updateQuestionStep();
+    }
+    previous() {
+      this.index--;
+      this.showCurrentQuestion();
+      this.updateQuestionStep();
+    }
+    showCurrentQuestion() {
+      this.questionTargets.forEach((element, index) => {
+        element.hidden = index !== this.index;
+      });
+    }
+    updateQuestionStep() {
+      this.stepTarget.innerText = `Question ${this.index + 1}/${this.questionTargets.length}`;
+      this.previousTarget.disabled = this.index === 0;
+      if (this.index === this.questionTargets.length - 1) {
+        this.nextTarget.disabled = true;
+      }
     }
   };
+  __publicField(quiz_controller_default, "targets", ["question", "step", "previous", "next"]);
 
   // app/javascript/controllers/index.js
-  application.register("hello", hello_controller_default);
+  application.register("quiz", quiz_controller_default);
 })();
 //# sourceMappingURL=assets/application.js.map
