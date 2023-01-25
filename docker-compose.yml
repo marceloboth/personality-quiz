@@ -32,6 +32,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+      - CHROME_URL=http://chrome:3333
     container_name: personality-quiz-ruby
     working_dir: /rails
     restart: always
@@ -41,6 +42,23 @@ services:
       - app-storage:/rails/storage
     ports:
       - "3000:3000"
+
+  chrome:
+    image: browserless/chrome:latest
+    ports:
+      - 3333:3333
+    # Mount application source code to support file uploading
+    # (otherwise Chrome won't be able to find files).
+    # NOTE: Make sure you use absolute paths in `#attach_file`.
+    volumes:
+      - .:/app:cached # change it for your rails' container directory
+    environment:
+      # By default, it uses 3000, which is typically used by Rails.
+      PORT: 3333
+      # Set connection timeout to avoid timeout exception during debugging
+      # https://docs.browserless.io/docs/docker.html#connection-timeout
+      CONNECTION_TIMEOUT: 600000
+
 volumes:
   db: {}
   redis-data: {}
