@@ -4,6 +4,8 @@ require 'system_helper'
 
 describe 'Personality Test', js: true do
   before do
+    stub_const('Question::TOTAL_QUESTIONS_ON_QUIZ', 2)
+
     answers_question_1
     answers_question_2
 
@@ -68,8 +70,8 @@ describe 'Personality Test', js: true do
       click_button('Save')
 
       expect(page).to have_current_path(quiz_result_path)
-      expect(page).to have_content('You are an introvert or an extrovert person')
-      expect(page).to have_content('based on your score of 2')
+      expect(page).to have_content('You are an introvert person')
+      expect(page).to have_content('based on your score of 1')
       expect(page).to have_link('Want to do it again?')
     end
   end
