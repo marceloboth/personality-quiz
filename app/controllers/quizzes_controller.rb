@@ -6,7 +6,7 @@ class QuizzesController < ApplicationController
   end
 
   def create
-    session[:quiz_result] = quiz_params.values.map(&:to_i).sum
+    session[:quiz_result] = quiz_params.values.sum(&:to_i)
     redirect_to quiz_result_path
   end
 

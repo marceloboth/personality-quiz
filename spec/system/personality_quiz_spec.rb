@@ -64,10 +64,10 @@ describe 'Personality Test', js: true do
       expect(page).to have_content('Question 1/2')
       choose "Don't dare to interrupt them"
       click_button('Next step')
-      choose "Look at your watch every two minutes"
+      choose 'Look at your watch every two minutes'
       click_button('Save')
 
-      expect(current_path).to eql(quiz_result_path)
+      expect(page).to have_current_path(quiz_result_path)
       expect(page).to have_content('You are an introvert or an extrovert person')
       expect(page).to have_content('based on your score of 2')
       expect(page).to have_link('Want to do it again?')

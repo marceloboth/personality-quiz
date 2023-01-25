@@ -4,10 +4,10 @@
 # instead of Selenium & co.
 # See https://github.com/rubycdp/cuprite
 
-REMOTE_CHROME_URL = ENV["CHROME_URL"]
+REMOTE_CHROME_URL = ENV['CHROME_URL']
 REMOTE_CHROME_HOST, REMOTE_CHROME_PORT =
   if REMOTE_CHROME_URL
-    URI.parse(REMOTE_CHROME_URL).yield_self do |uri|
+    URI.parse(REMOTE_CHROME_URL).then do |uri|
       [uri.host, uri.port]
     end
   end
@@ -26,9 +26,9 @@ remote_chrome =
     false
   end
 
-remote_options = remote_chrome ? {url: REMOTE_CHROME_URL} : {}
+remote_options = remote_chrome ? { url: REMOTE_CHROME_URL } : {}
 
-require "capybara/cuprite"
+require 'capybara/cuprite'
 
 # Then, we need to register our driver to be able to use it later
 # with #driven_by method.#
@@ -39,7 +39,7 @@ Capybara.register_driver(:better_cuprite) do |app|
     app,
     **{
       window_size: [1200, 800],
-      browser_options: remote_chrome ? { "no-sandbox" => nil } : {},
+      browser_options: remote_chrome ? { 'no-sandbox' => nil } : {},
       inspector: true
     }.merge(remote_options)
   )
@@ -58,7 +58,7 @@ module CupriteHelpers
 
   # Drop #debug anywhere in a test to open a Chrome inspector and pause the execution
   def debug(binding = nil)
-    $stdout.puts "🔎 Open Chrome inspector at http://localhost:3333"
+    $stdout.puts '🔎 Open Chrome inspector at http://localhost:3333'
     return binding.break if binding
 
     page.driver.pause
