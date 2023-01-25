@@ -2,18 +2,17 @@
 
 class QuizzesController < ApplicationController
   def new
-    @questions = Question.preload(:answers).limit(5)
+    @questions = Question.personality_test
   end
 
   def create
-    session[:quiz_result] = quiz_params.values.sum(&:to_i)
+    session[:answers_sum] = quiz_params.values.sum(&:to_i)
     redirect_to quiz_result_path
   end
 
   private
 
   def quiz_params
-    p = Question.pluck(:id).map { |q| "question_#{q}".to_sym }
-    params.require(:quiz).permit(p)
+    params.require(:quiz).permit(Question.permitted_questions)
   end
 end

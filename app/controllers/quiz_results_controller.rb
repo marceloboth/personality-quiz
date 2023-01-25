@@ -2,6 +2,6 @@
 
 class QuizResultsController < ApplicationController
   def show
-    @score = session[:quiz_result]
+    @quiz_result = QuizResultService.call(answers_sum: session[:answers_sum])
   end
 end
