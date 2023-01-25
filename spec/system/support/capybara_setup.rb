@@ -13,6 +13,9 @@ Capybara.default_max_wait_time = 2
 # That makes tests less dependent on slightly UI changes.
 Capybara.default_normalize_ws = true
 
+# Usually capybara doesn't click a label for a radio button
+Capybara.automatic_label_click = true
+
 # Where to store system tests artifacts (e.g. screenshots, downloaded files, etc.).
 # It could be useful to be able to configure this path from the outside (e.g., on CI).
 Capybara.save_path = ENV.fetch('CAPYBARA_ARTIFACTS', './tmp/capybara')
