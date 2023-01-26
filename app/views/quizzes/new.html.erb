@@ -1,50 +1,51 @@
-  <div data-controller="quiz">
-    <div class="shadow sm:overflow-hidden sm:rounded-md">
-      <div class="space-y-6 bg-white py-6 px-4 sm:p-6">
-        <div class="py-24 px-6 sm:px-6 sm:py-32 lg:px-8">
-          <div class="mx-auto max-w-2xl content-center">
-            <div>
-              <h3 class="text-lg font-medium leading-6 text-gray-900" data-quiz-target="step"></h3>
-            </div>
-            <%= form_with(url: quiz_path, method: :post, class: 'space-y-8 divide-y divide-gray-200') do |form| %>
-              <% @questions.each do |question| %>
-                <div data-quiz-target="question">
-                  <fieldset class="mt-6">
-                    <legend class="text-base font-medium text-gray-900"><%= question.title %></legend>
-                    <p class="text-sm text-gray-500"></p>
-                    <div class="mt-4 space-y-4">
-                      <% question.answers.each do |answer| %>
-                        <div class="flex items-center">
-                          <%= form.radio_button "quiz[question_#{question.id}]", answer.personality, data: { action: 'quiz#enableNextButton' }, class: "h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500", required: true %>
-                          <%= form.label "quiz[question_#{question.id}]_#{answer.personality}", class: 'ml-3' do %>
-                            <span class="block text-sm font-medium text-gray-700"><%= answer.title %></span>
-                          <% end %>
-                        </div>
-                      <% end %>
-                    </div>
-                  </fieldset>
-                </div>
-              <% end %>
+<div class="shadow sm:overflow-hidden sm:rounded-md">
+  <div class="space-y-6 bg-white py-6 px-4 sm:p-6">
+    <div class="py-24 px-6 sm:px-6 sm:py-32 lg:px-8">
+      <div class="mx-auto max-w-2xl content-center">
+        <div data-controller="quiz">
+          <div>
+            <h3 class="text-lg font-medium leading-6 text-gray-900" data-quiz-target="step"></h3>
+          </div>
 
-              <div class="pt-5">
-                <div class="flex justify-between">
-                  <div>
-                    <button type="button" data-action="quiz#previous" data-quiz-target="previous" class="rounded-md relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">Previous question</button>
+          <%= form_with(url: quiz_path, method: :post, class: 'space-y-8 divide-y divide-gray-200') do |form| %>
+            <% @questions.each do |question| %>
+              <div data-quiz-target="question">
+                <fieldset class="mt-6">
+                  <legend class="text-base font-medium text-gray-900"><%= question.title %></legend>
+                  <p class="text-sm text-gray-500"></p>
+                  <div class="mt-4 space-y-4">
+                    <% question.answers.each do |answer| %>
+                      <div class="flex items-center">
+                        <%= form.radio_button "quiz[question_#{question.id}]", answer.personality, data: { action: 'quiz#enableNextButton' }, class: "h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500", required: true %>
+                        <%= form.label "quiz[question_#{question.id}]_#{answer.personality}", class: 'ml-3' do %>
+                          <span class="block text-sm font-medium text-gray-700"><%= answer.title %></span>
+                        <% end %>
+                      </div>
+                    <% end %>
                   </div>
-                  <div>
-                    <button type="button" data-action="quiz#next" data-quiz-target="next" class="rounded-md relative -ml-px inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500" disabled>Next question</button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="pt-5">
-                <div class="flex justify-end">
-                  <%= form.submit 'Finish', 'data': { 'quiz-target': 'finish' }, class: "rounded-md inline-flex justify-center border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" %>
-                </div>
+                </fieldset>
               </div>
             <% end %>
-          </div>
+
+            <div class="pt-5">
+              <div class="flex justify-between">
+                <div>
+                  <button type="button" data-action="quiz#previous" data-quiz-target="previous" class="rounded-md relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">Previous question</button>
+                </div>
+                <div>
+                  <button type="button" data-action="quiz#next" data-quiz-target="next" class="rounded-md relative -ml-px inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500" disabled>Next question</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-5">
+              <div class="flex justify-end">
+                <%= form.submit 'Finish', 'data': { 'quiz-target': 'finish' }, class: "rounded-md inline-flex justify-center border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" %>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
+</div>
