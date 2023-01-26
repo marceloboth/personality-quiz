@@ -39,25 +39,24 @@ describe 'Personality Test', js: true do
   describe 'user can answer the questions and have a result in the end' do
     it 'navigate through questions' do
       expect(page).to have_content('Question 1/2')
-
       expect(page).to have_content(question_1.title)
       answers_question_1.each do |answer|
         expect(page).to have_content(answer.title)
       end
-
       expect(page).not_to have_content(question_2.title)
 
-      click_button('Next step')
+      choose "Don't dare to interrupt them"
+      click_button('Next question')
 
       expect(page).to have_content('Question 2/2')
-
       expect(page).not_to have_content(question_1.title)
       expect(page).to have_content(question_2.title)
       answers_question_2.each do |answer|
         expect(page).to have_content(answer.title)
       end
 
-      click_button('Previous step')
+      click_button('Previous question')
+
       expect(page).to have_content('Question 1/2')
       expect(page).to have_content(question_1.title)
     end
@@ -65,9 +64,10 @@ describe 'Personality Test', js: true do
     it 'answer each question and get a personality result' do
       expect(page).to have_content('Question 1/2')
       choose "Don't dare to interrupt them"
-      click_button('Next step')
+      click_button('Next question')
       choose 'Look at your watch every two minutes'
-      click_button('Save')
+
+      click_button('Finish')
 
       expect(page).to have_current_path(quiz_result_path)
       expect(page).to have_content('You are an introvert person')

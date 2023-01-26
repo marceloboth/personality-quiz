@@ -6653,18 +6653,25 @@
   var quiz_controller_default = class extends Controller {
     initialize() {
       this.index = 0;
-      this.showCurrentQuestion();
-      this.updateQuestionStep();
+      this.manageState();
+    }
+    enableNextButton() {
+      console.log(this.nextTarget);
+      this.nextTarget.disabled = false;
     }
     next() {
       this.index++;
-      this.showCurrentQuestion();
-      this.updateQuestionStep();
+      this.manageState();
     }
     previous() {
       this.index--;
+      this.manageState();
+      this.nextTarget.disabled = false;
+    }
+    manageState() {
       this.showCurrentQuestion();
       this.updateQuestionStep();
+      this.manageButtonsState();
     }
     showCurrentQuestion() {
       this.questionTargets.forEach((element, index) => {
@@ -6673,13 +6680,25 @@
     }
     updateQuestionStep() {
       this.stepTarget.innerText = `Question ${this.index + 1}/${this.questionTargets.length}`;
-      this.previousTarget.disabled = this.index === 0;
+    }
+    manageButtonsState() {
+      this.nextTarget.disabled = true;
+      if (this.index === 0) {
+        this.previousTarget.classList.add("invisible");
+        this.finishTarget.classList.add("invisible");
+      }
+      if (this.index > 0) {
+        this.previousTarget.classList.remove("invisible");
+        this.nextTarget.classList.remove("invisible");
+        this.finishTarget.classList.add("invisible");
+      }
       if (this.index === this.questionTargets.length - 1) {
-        this.nextTarget.disabled = true;
+        this.nextTarget.classList.add("invisible");
+        this.finishTarget.classList.remove("invisible");
       }
     }
   };
-  __publicField(quiz_controller_default, "targets", ["question", "step", "previous", "next"]);
+  __publicField(quiz_controller_default, "targets", ["question", "step", "previous", "next", "finish"]);
 
   // app/javascript/controllers/index.js
   application.register("quiz", quiz_controller_default);
