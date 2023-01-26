@@ -12,6 +12,10 @@
 
   <body class="h-full">
     <%= render Notification::FlashMessageComponent.new(flash) %>
-    <%= yield %>
+    <div class="grid grid-cols-1 md:grid-cols-4 mt-6">
+      <div></div>
+      <div class="col-start-2 col-span-2"><%= yield %></div>
+      <div></div>
+    </div>
   </body>
 </html>
