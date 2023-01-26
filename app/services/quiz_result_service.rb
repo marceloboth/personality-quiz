@@ -19,6 +19,6 @@ class QuizResultService
   end
 
   def score
-    @score ||= @answers_sum / @number_questions
+    @score ||= (@answers_sum.to_f / @number_questions).ceil
   end
 end
