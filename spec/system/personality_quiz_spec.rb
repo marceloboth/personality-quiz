@@ -70,8 +70,8 @@ describe 'Personality Test', js: true do
       click_button('Finish')
 
       expect(page).to have_current_path(quiz_result_path)
-      expect(page).to have_content('You are an introvert person')
-      expect(page).to have_content('based on your score of 1')
+      expect(page).to have_content('You are more of an introvert')
+      expect(page).to have_content('based on your personality test score')
       expect(page).to have_link('Want to do it again?')
     end
   end
