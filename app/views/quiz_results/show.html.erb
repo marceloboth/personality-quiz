@@ -1,13 +1,5 @@
-<div class="shadow sm:overflow-hidden sm:rounded-md">
-  <div class="space-y-6 bg-white py-6 px-4 sm:p-6">
-    <div class="py-24 px-6 sm:px-6 sm:py-32 lg:px-8">
-      <div class="mx-auto max-w-2xl text-center">
-        <h2 class="text-4xl font-bold tracking-tight text-gray-900"><%= @quiz_result %></h2>
-        <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">based on your personality test score</p>
-        <div class="mt-10 flex items-center justify-center gap-x-6">
-          <%= link_to 'Want to do it again?', new_quiz_path, class: "rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render Quiz::CallToActionComponent.new do |slot| %>
+  <%= slot.with_title { @quiz_result } %>
+  <%= slot.with_description { 'based on your personality test score' } %>
+  <%= slot.with_link_to_new_quiz { 'Want to do it again?' } %>
+<% end %>
