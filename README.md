@@ -30,10 +30,15 @@ Install dependencies and create the database
 
 ```shell
 docker exec -it personality-quiz-ruby bin/docker-entrypoint
+```
+
+Start the web server and tailwind stuffs:
+
+```shell
 docker exec -it personality-quiz-ruby bin/dev
 ```
 
-open localhost:3000 and fill out the quiz.
+open [the application](http://localhost:3000) and fill out the quiz.
 
 
 To run the specs:
