@@ -20,6 +20,14 @@ The result will not be stored on database, just on session and the user can redo
 
 This project as a docker setup for development and test.
 
+First create a `.env` file on the root folder and place this ENV variables to set on the docker containers:
+```
+RAILS_ENV=development
+POSTGRES_HOST=db
+POSTGRES_USER=admin
+POSTGRES_PASSWORD=password123
+```
+
 Run docker compose to build all containers
 
 ```shell
